@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Character Grid</title>
+	<link rel="stylesheet" href="GridDisplayEditor.css">
+</head>
+
+<body>
+	<!-- Top Toolbar -->
+	<table id="toolbar">
+	</table>
+
+	<!-- main grid -->
+	<div id="grid-wrapper">
+		<div id="layer1" class="grid-container" style="z-index: 1;"></div>
+		<div id="layer2" class="grid-container" style="z-index: 2;"></div>
+		<div id="layer3" class="grid-container" style="z-index: 3;"></div>
+	</div>
+
+	<div id="confirmation-modal" class="modal">
+		<div class="modal-content">
+			<p>Are you sure you want to clear all layers?</p>
+			<div id="button-container">
+				<button id="confirm-yes">Yes</button>
+				<button id="confirm-no">No</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="made-by">
+		version 2.1_S | Made By Goodgu
+    </div>
+
+	<script src="GridDisplayEditor.js"></script>
+</body>
+
+</html>

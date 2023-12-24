@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Character Grid</title>
+    <style>
+        @font-face {
+            font-family: 'StarbaseFont';
+            src: url(data:font/otf;charset=utf-8;base64,T1RUTwAJAIAAAwAQQ0ZGIMFRZeQAAA1AAAA7FU9TLzJc/CckAAABAAAAAGBjbWFwG+oK3gAAChwAAAMEaGVhZPSmtZUAAACcAAAANmhoZWEGBAHcAAAA1AAAACRobXR4J8oiIgAASFgAAAHIbWF4cADiUAAAAAD4AAAABm5hbWWgDhdUAAABYAAACLlwb3N0/58AFgAADSAAAAAgAAEAAAACAADsY4K3Xw889QADA+gAAAAAyXC40QAAAADJcLjRAC7/IQJ/A/IAAAADAAIAAAAAAAAAAQAAAwr/IgBLApsALgAcAn8AAQAAAAAAAAAAAAAAAAAAAAIAAFAAAOIAAAACApwBkAAFAAQCvAKKAAAAjAK8AooAAAHdADIA+gAAAgAFBgIAAAIABIAAAK9AAABKAAAAAAAAAABZT0ZvAEAAIPsCAwr/IgBLA/IA3wAAAAEAAAAAAiwDCwAAACAAAAAAABwBVgABAAAAAAAAAGcAAAABAAAAAAABAAkAZwABAAAAAAACAAYAcAABAAAAAAADAB8AdgABAAAAAAAEABAAlQABAAAAAAAFAA0ApQABAAAAAAAGABAAsgABAAAAAAAHAAkAZwABAAAAAAAIAAcAwgABAAAAAAAJABAAyQABAAAAAAAKAdEA2QABAAAAAAALAA8CqgABAAAAAAAMAA8CqgABAAAAAAAQAAkAZwABAAAAAAARAAYAcAADAAEECQAAABgCuQADAAEECQABABIC0QADAAEECQACAAwC4wADAAEECQADAD4C7wADAAEECQAEACADLQADAAEECQAFAAgDTQADAAEECQAGACADVQADAAEECQAHABIC0QADAAEECQAIAA4DdQADAAEECQAJACADgwADAAEECQAKA6IDowADAAEECQALAB4HRQADAAEECQAMAB4HRUNvcHlyaWdodCAoQykgMTk5Mi0yMDExIFlPRm9udHMuIEFsbCByaWdodHMgcmVzZXJ2ZWQuIFZlcnNpb24gMi4wMC4gRGVzaWduZWQgYnkgWWFzdWhpcm8gWWFtYW9rYSwgMTk5Mi5UZWxlZ3JhbWFSZW5kZXJZT0ZvbnRzOiBUZWxlZ3JhbWEgUmVuZGVyOiAyMDExVGVsZWdyYW1hIFJlbmRlclZlcnNpb24gMi4wMDBUZWxlZ3JhbWEtUmVuZGVyWU9Gb250c1lhbWFva2EgWWFzdWhpcm9UZWxlZ3JhbWEgaXMgYSB0eXBlZmFjZSB0aGF0IGNyZWF0ZWQgZnJvbSB0aGUgb3JpZ2luYWwgaWRlYSBmb3IgdGhlIHJlbGFzaGlvbnNoaXAgYmV0d2VlbiBQaXhlIGFuZCBTbW9vLiBBdCB0aGUgdGltZSBvZiAxOTkyIHdoZW4gSSBkZXNpZ25lZCB0aGVzZSwgZWFjaCBvZiBUZWxlZ3JhbWEgUmF3IGFuZCBUZWxlZ3JhbWEgUmVuZGVyIGhhZCBhbm90aGVyIG5hbWUgYXMgdGhlIGRpZmZlcm50IGZvbnQuIFRoZXNlIGZvbnRzIHdlcmUgYWxtb3N0IGNvbXBsZXRlZCwgYnV0IHRoZXkgaGFkIGJlZW4gZm9yZ290dGVuIHVudGlsIEkgZGlzY292ZXJlZCB0aGVzZSBpbiAyMDA4LiBUaGlzIHRpbWUsIEkgdW5pdGVkIHRoZXNlIHR3byBmb250cyBhcyBhIGZhbWlseS4gSSBkZWNpZGVkIHRvIGV4aGliaXQgdGhlc2Ugd2l0aCBhIGxpdHRsZSBmaXhpbmcgYW5kIGFkZGluZyBzb21lIGFjY2VudGVkIGNoYXJhY3RlcnMsIGV0Yy53d3cueW93b3Jrcy5jb20AWQBPAEYAbwBuAHQAcwAgADIAMAAxADEAVABlAGwAZQBnAHIAYQBtAGEAUgBlAG4AZABlAHIAWQBPAEYAbwBuAHQAcwA6ACAAVABlAGwAZQBnAHIAYQBtAGEAIABSAGUAbgBkAGUAcgA6ACAAMgAwADEAMQBUAGUAbABlAGcAcgBhAG0AYQAgAFIAZQBuAGQAZQByADIALgAwADAAVABlAGwAZQBnAHIAYQBtAGEALQBSAGUAbgBkAGUAcgBZAE8ARgBvAG4AdABzAFkAYQBtAGEAbwBrAGEAIABZAGEAcwB1AGgAaQByAG8AVABlAGwAZQBnAHIAYQBtAGEAIABpAHMAIABhACAAdAB5AHAAZQBmAGEAYwBlACAAdABoAGEAdAAgAGMAcgBlAGEAdABlAGQAIABmAHIAbwBtACAAdABoAGUAIABvAHIAaQBnAGkAbgBhAGwAIABpAGQAZQBhACAAZgBvAHIAIAB0AGgAZQAgAHIAZQBsAGEAcwBoAGkAbwBuAHMAaABpAHAAIABiAGUAdAB3AGUAZQBuACAAUABpAHgAZQAgAGEAbgBkACAAUwBtAG8AbwAuACAAQQB0ACAAdABoAGUAIAB0AGkAbQBlACAAbwBmACAAMQA5ADkAMgAgAHcAaABlAG4AIABJACAAZABlAHMAaQBnAG4AZQBkACAAdABoAGUAcwBlACwAIABlAGEAYwBoACAAbwBmACAAVABlAGwAZQBnAHIAYQBtAGEAIABSAGEAdwAgAGEAbgBkACAAVABlAGwAZQBnAHIAYQBtAGEAIABSAGUAbgBkAGUAcgAgAGgAYQBkACAAYQBuAG8AdABoAGUAcgAgAG4AYQBtAGUAIABhAHMAIAB0AGgAZQAgAGQAaQBmAGYAZQByAG4AdAAgAGYAbwBuAHQALgAgAFQAaABlAHMAZQAgAGYAbwBuAHQAcwAgAHcAZQByAGUAIABhAGwAbQBvAHMAdAAgAGMAbwBtAHAAbABlAHQAZQBkACwAIABiAHUAdAAgAHQAaABlAHkAIABoAGEAZAAgAGIAZQBlAG4AIABmAG8AcgBnAG8AdAB0AGUAbgAgAHUAbgB0AGkAbAAgAEkAIABkAGkAcwBjAG8AdgBlAHIAZQBkACAAdABoAGUAcwBlACAAaQBuACAAMgAwADAAOAAuACAAVABoAGkAcwAgAHQAaQBtAGUALAAgAEkAIAB1AG4AaQB0AGUAZAAgAHQAaABlAHMAZQAgAHQAdwBvACAAZgBvAG4AdABzACAAYQBzACAAYQAgAGYAYQBtAGkAbAB5AC4AIABJACAAZABlAGMAaQBkAGUAZAAgAHQAbwAgAGUAeABoAGkAYgBpAHQAIAB0AGgAZQBzAGUAIAB3AGkAdABoACAAYQAgAGwAaQB0AHQAbABlACAAZgBpAHgAaQBuAGcAIABhAG4AZAAgAGEAZABkAGkAbgBnACAAcwBvAG0AZQAgAGEAYwBjAGUAbgB0AGUAZAAgAGMAaABhAHIAYQBjAHQAZQByAHMALAAgAGUAdABjAC4AdwB3AHcALgB5AG8AdwBvAHIAawBzAC4AYwBvAG0AAAAAAAADAAAAAwAAASIAAQAAAAAAHAADAAEAAAEiAAABBgAAAAAAAAAAAAAADwAAAA8AAAAAAAAAAAAAAAAAAAAAAAAPEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbQBub3BxcnN0dXZ3eHl6e3x9fn+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ0AngAAn6ChAKIAAKOkAKWmp6gAAKkAAKqrrK2ur7CxsrO0tba3uLkAursA4by9vr/AwcLDxMXGx8jJysvMzc7PANHS09TV1tfY2drb3N3e3wAEAeIAAABCAEAABQACAH4AowCrALEAuAC7AP8BMQFCAVMBYQF4AX4BkgLHAtoC3QO8IBQgGiAeICIgJiAwIDogrCEiIgIiDyISImD7Av//AAAAIACgAKUArgC0ALoAvwExAUEBUgFgAXgBfQGSAsYC2ALbA7wgEyAYIBwgICAmIDAgOSCsISIiAiIPIhIiYPsB////7wAAAAAAAAAAAAAAAP+k/sH/X/6k/0P+jf8XAAD+AQAA/OTgoAAAAAAAAOCG4JTgg+A133ben96T3fveOwW9AAEAAABAAEYAUgBYAGAAYgAAAAAAAAAAAAAAAAAAANQAAADUAAAAAADUANgA3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArQCoAJAAkQCfAAwAkgCaAJcAowCqAJYA2ACPAJ4AmQCgAJQAwQDcAKQAqwCnAK4AxwDFAK8AbgBvAJwAcADJAHEAxgDIAM0AygDLAMwA4AByANEAzgDPALAAcwAOAJ0A1ADSANMAdAAGAAgAlQB2AHUAdwB5AHgAegClAHsAfQB8AH4AfwCBAIAAggCDAAEAhACGAIUAhwCJAIgAuQCmAIsAigCMAI0ABwAJALoA1gDfAN4A1wDdALcAuADCALUAtgDDAI4AwACTAAMAAAAAAAD/nAAWAAAAAAAAAAAAAAAAAAAAAAAAAAABAAQCAAEBARFUZWxlZ3JhbWEtUmVuZGVyAAEBATb4EAD4IQH4IgwA+CMC+CQD+BgE+wMMA6EMBLn7c/kT+oYFHQBMtqQNHAmyDxwK6BGtHDP3EgAKAgABAAkAFAAbACIAJwArAJICYwJzAnxub3RlcXVhbHBhcnRpYWxkaWZmcHJvZHVjdG5ic3BhY2VhcHBsZUV1cm9Db3B5cmlnaHQgKEMpIDE5OTItMjAxMSBZT0ZvbnRzLiBBbGwgcmlnaHRzIHJlc2VydmVkLiBWZXJzaW9uIDIuMDAuIERlc2lnbmVkIGJ5IFlhc3VoaXJvIFlhbWFva2EsIDE5OTIuVGVsZWdyYW1hIGlzIGEgdHlwZWZhY2UgdGhhdCBjcmVhdGVkIGZyb20gdGhlIG9yaWdpbmFsIGlkZWEgZm9yIHRoZSByZWxhc2hpb25zaGlwIGJldHdlZW4gUGl4ZSBhbmQgU21vby4gQXQgdGhlIHRpbWUgb2YgMTk5MiB3aGVuIEkgZGVzaWduZWQgdGhlc2UsIGVhY2ggb2YgVGVsZWdyYW1hIFJhdyBhbmQgVGVsZWdyYW1hIFJlbmRlciBoYWQgYW5vdGhlciBuYW1lIGFzIHRoZSBkaWZmZXJudCBmb250LiBUaGVzZSBmb250cyB3ZXJlIGFsbW9zdCBjb21wbGV0ZWQsIGJ1dCB0aGV5IGhhZCBiZWVuIGZvcmdvdHRlbiB1bnRpbCBJIGRpc2NvdmVyZWQgdGhlc2UgaW4gMjAwOC4gVGhpcyB0aW1lLCBJIHVuaXRlZCB0aGVzZSB0d28gZm9udHMgYXMgYSBmYW1pbHkuIEkgZGVjaWRlZCB0byBleGhpYml0IHRoZXNlIHdpdGggYSBsaXR0bGUgZml4aW5nIGFuZCBhZGRpbmcgc29tZSBhY2NlbnRlZCBjaGFyYWN0ZXJzLCBldGMuVGVsZWdyYW1hIFJlbmRlclRlbGVncmFtYQClAgABAAgADwAVABoAOQA9AEIAZABtAHUAegCCAIYAigCPAJYAogCsALMAuADCAMYA3ADjAOcA7ADwAPYA+wEBAQkBEwEYASYBLwE0AToBRwFRAWwBcgGFAZYBswHAAcUBzQHRAdYB3AHgAeoB9AIAAgkCEgIvAjgCWAJfAmcCfQKBAoUCiwKSApYCnAKhAqUCwgLGAtQC2QLfAvEC9gL/AwMDCAMMAxEDLgM2A0MDTQNWA1sDYANpA3UDfQOEA4gDjgOZA6ADpgOrA7oDwAPHA8sD0APYA90D5gPtA/ID9gP/BAoEEgQXBCIEJwQrBDoERgRMBFMEYARpBG8EdAR4BH0EhgSPBJQEnwSlBLEEuQS9BMIEyQTOBNME1wTlBOkE7QTyBPcE/AUCBQgFDQUTBRkFJQUwBTUFOQVBBUcFSgVPBVMFXQVhBWwFdQV9fywdVG8dC3x8ClQjHQuXf7QKlwsHey0dC/iI+ikV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) format('opentype');
+        }
+
+        body {
+            font-family: 'StarbaseFont';
+            color: #e2e9ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1b2023;
+
+            overflow: hidden;
+        }
+
+        /* ------------------------------- Toolbars ------------------------------- */
+        .toolbar-container {
+            display: flex;
+            flex-direction: row;
+
+            margin-top: 4px;
+            margin-bottom: 4px;
+
+            user-select: none;
+        }
+
+        .toolbar-element {
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 100;
+            color: inherit;
+
+            border: none;
+            background-color: transparent;
+            text-decoration: none;
+
+            background-color: #2d343d;
+
+            margin-left: 2px;
+            margin-right: 2px;
+            padding: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+            box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .toolbar-element:first-child {
+            padding-left: 15px;
+        }
+
+        .toolbar-element:last-child {
+            padding-right: 15px;
+        }
+
+        .toolbar-container:first-of-type .toolbar-element:first-child {
+            border-top-left-radius: 15px;
+        }
+
+        .toolbar-container:first-of-type .toolbar-element:last-child {
+            border-top-right-radius: 15px;
+        }
+
+        .toolbar-container:last-of-type .toolbar-element:first-child {
+            border-bottom-left-radius: 15px;
+        }
+
+        .toolbar-container:last-of-type .toolbar-element:last-child {
+            border-bottom-right-radius: 15px;
+        }
+
+        .toolbar-element input:focus {
+            outline: none;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:hover {
+            background-color: rgb(66, 79, 107);
+            box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.5), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+
+        .clear-all:hover,
+        .clear-layer:hover {
+            background-color: rgb(148, 44, 44);
+            box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.8), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .toolbar-bottom:first-child {
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+        }
+
+        .toolbar-bottom:last-child {
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        /* ------------------------------- Slider Inputs ------------------------------- */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 10px;
+            height: 14px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, grey, #ffffff);
+            border: solid 2px #e2e9ff;
+            cursor: pointer;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, grey, #ffffff);
+            border: solid 2px #e2e9ff;
+            cursor: pointer;
+        }
+
+        .hue-slider {
+            width: 200px;
+            background: linear-gradient(to right, red, #FF8000, yellow, #80FF00, lime, #00FF80, cyan, #0080FF, blue, #8000FF, violet, #FF0080, red);
+        }
+
+        .scale-slider {
+            transform: scaleX(-1);
+            background: linear-gradient(-3deg, #2d343d 25%, transparent 30%),
+                linear-gradient(-177deg, #2d343d 25%, transparent 30%),
+                linear-gradient(to left, #7e7e7e 99%, #7e7e7e);
+        }
+
+        /* ------------------------------- Number Inputs ------------------------------- */
+        .toolbar-element input[type=number] {
+            font-family: inherit;
+            color: inherit;
+            font-size: inherit;
+
+            width: 50px;
+            text-align: center;
+            height: 28px;
+
+            background-color: inherit;
+            border: none;
+        }
+
+        /* ------------------------------- Selection box ------------------------------- */
+        .selection-box {
+            display: flex;
+            position: absolute;
+            border: 2px solid yellow;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .selection-box:focus {
+            outline: none;
+        }
+
+        /* ------------------------------- Grid ------------------------------- */
+        #grid-wrapper {
+            margin-top: 10px;
+            position: relative;
+            border: 1px solid #444;
+            background-color: black;
+        }
+
+        #grid-wrapper:before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background-color: black;
+            z-index: -1;
+        }
+
+        .grid-container {
+            display: grid;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            color: hsl(100, 100, 50);
+        }
+
+        .grid-square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            user-select: none;
+            caret-color: transparent;
+            cursor: default;
+            border: none;
+        }
+
+        .grid-square.selected {
+            user-select: none;
+        }
+
+        .grid-square.grid-outline {
+            border: 1px solid #444;
+        }
+
+        /* ------------------------------- Confirmation Modal ------------------------------- */
+
+        .modal {
+            font-family: 'StarbaseFont';
+            color: #e2e9ff;
+
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+
+            user-select: none;
+        }
+
+        .modal-content {
+            font-family: 'StarbaseFont';
+            color: #e2e9ff;
+
+            background-color: #2d343d;
+            margin: 40% auto;
+            padding: 20px;
+            width: 50%;
+            border-radius: 15px;
+            box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.8), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+        }
+
+        .modal-content button {
+            font-family: 'StarbaseFont';
+            color: #e2e9ff;
+            font-size: 16px;
+
+            width: 100px;
+
+            background-color: #4d646d;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+
+            box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        #confirm-no:hover {
+            background-color: rgb(61, 74, 102);
+            box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.5), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        #confirm-yes:hover {
+            background-color: rgb(148, 44, 44);
+            box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.8), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ------------------------------- Attribution ------------------------------- */
+        .made-by {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 12px;
+            padding: 10px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Toolbar -->
+    <table id="toolbar">
+    </table>
+
+    <!-- main grid -->
+    <div id="grid-wrapper">
+        <div id="layer1" class="grid-container" style="z-index: 1;"></div>
+        <div id="layer2" class="grid-container" style="z-index: 2;"></div>
+        <div id="layer3" class="grid-container" style="z-index: 3;"></div>
+    </div>
+
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to clear all layers?</p>
+            <div id="button-container">
+                <button id="confirm-yes">Yes</button>
+                <button id="confirm-no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="made-by">
+        version 2.1_S | Made By Goodgu
+    </div>
+
+    <script>
+        // Layer defaults
+        let layers;
+
+        let isSelecting = false;
+        let selectStartGridSquare;
+        let selectEndGridSquare;
+        let selectionBox;
+        let selectedSquares = [];
+
+        // default layer
+        let currentLayer = 'layer1';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeToolbars();
+            initializeGrid();
+            updateGridLayout();
+            writeToGrid();
+        });
+
+        function initializeToolbars() {
+
+            // Create the main toolbar
+            toolbar = document.getElementById('toolbar');
+
+            // Create the layer toolbars
+            toolbar.appendChild(createToolbarLayer('layer1'));
+            toolbar.appendChild(createToolbarLayer('layer2'));
+            toolbar.appendChild(createToolbarLayer('layer3'));
+
+            // Create the bottom toolbar
+            body = document.getElementsByTagName('body')[0];
+            body.appendChild(createBottomToolbar());
+        }
+
+        // add listeners to the whole document that will handle right click events
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+
+        loadLayersFromLocalStorage();
+
+        function initializeGrid() {
+            Object.keys(layers).forEach(layerId => {
+                const layer = layers[layerId];
+                const gridContainer = document.getElementById(layerId);
+
+                for (let i = 0; i < 625; i++) {
+                    let gridSquare = document.createElement('div');
+                    gridSquare.classList.add('grid-square');
+                    gridSquare.dataset.layer = layerId;
+                    gridSquare.dataset.index = i;
+                    gridSquare.id = `${layerId}-${i}`;
+
+                    gridContainer.appendChild(gridSquare);
+                }
+            });
+
+            // add event listener to grid wrapper
+            const gridWrapper = document.getElementById('grid-wrapper');
+            gridWrapper.addEventListener('mousedown', selectStart);
+            gridWrapper.addEventListener('mouseup', selectEnd);
+            gridWrapper.addEventListener('mousemove', selectMove);
+
+            // add the select box to the grid wrapper
+            selectionBox = document.createElement('div');
+            selectionBox.classList.add('selection-box');
+            selectionBox.style.display = 'none';
+            selectionBox.tabIndex = 0;
+            gridWrapper.appendChild(selectionBox);
+
+            document.addEventListener('mousedown', function (event) {
+                // check if the mouse is outside the grid wrapper
+                if (!event.target.closest('#grid-wrapper')) {
+                    // clear all selected grid squares
+                    selectedSquares.forEach(gridSquare => {
+                        gridSquare.classList.remove('selected');
+                    });
+                    selectedSquares = [];
+
+                    // hide the selection box
+                    document.getElementsByClassName('selection-box')[0].style.display = 'none';
+                }
+            });
+
+            // add handler for keyboard input
+            selectionBox.addEventListener('keydown', handleInput);
+        }
+
+        function selectStart(event) {
+            event.preventDefault();
+
+            // Confirm left mouse button is pressed
+            if (event.button !== 0) return;
+
+            // Get the grid square that was clicked, only if it's part of the current layer
+            const gridSquare = event.target.closest(`#${currentLayer} .grid-square`);
+
+            // Proceed only if a grid square of the current layer was clicked
+            if (gridSquare) {
+                selectStartGridSquare = gridSquare;
+                selectEndGridSquare = gridSquare;
+
+                // Show the selection box
+                selectionBox.style.display = 'block';
+                isSelecting = true;
+
+                updateSelectionBox();
+            }
+        }
+
+        function selectMove(event) {
+            if (isSelecting) {
+                // Get the current grid square under the mouse, only if it's part of the current layer
+                const gridSquare = event.target.closest(`#${currentLayer} .grid-square`);
+
+                // Proceed only if moving within a grid square of the current layer
+                if (gridSquare) {
+                    selectEndGridSquare = gridSquare;
+                    updateSelectionBox();
+                }
+            }
+        }
+
+        function selectEnd(event) {
+            isSelecting = false;
+            selectionBox.focus();
+        }
+
+        function getSelectionBoxBounds() {
+            const rect = selectionBox.getBoundingClientRect();
+            return {
+                top: rect.top + 3,
+                left: rect.left + 3,
+                right: rect.right - 3,
+                bottom: rect.bottom - 3
+            };
+        }
+
+        function isGridSquareInsideSelection(gridSquare, selectionBounds) {
+            const rect = gridSquare.getBoundingClientRect();
+            return rect.left < selectionBounds.right &&
+                rect.right > selectionBounds.left &&
+                rect.top < selectionBounds.bottom &&
+                rect.bottom > selectionBounds.top;
+        }
+
+        function updateGridLayout() {
+            for (let layerId in layers) {
+                if (layers.hasOwnProperty(layerId)) {
+                    const layer = layers[layerId];
+                    const scale = layer.scale;
+                    const gridContainer = document.getElementById(layerId);
+                    if (gridContainer) {
+                        const gridSize = gridContainer.offsetWidth / scale;
+                        gridContainer.style.gridTemplateColumns = `repeat(25, ${gridSize}px)`;
+                        gridContainer.style.gridTemplateRows = `repeat(25, ${gridSize}px)`;
+                        gridContainer.style.fontSize = `${gridSize * 0.8}px`; // Set font size to 80% of grid size
+                    }
+
+                    // Set the hue of the grid text
+                    gridContainer.style.color = `hsl(${layer.hue}, 100%, 50%)`;
+
+                    const layerToolbar = document.getElementById(`toolbar-container-${layerId}`);
+                    if (layerToolbar) {
+                        updateSliderThumbBackground(layerId, layer.hue);
+                    }
+
+                    // Set the hue of the grid outline
+                    const gridSquares = document.querySelectorAll(`#${layerId} .grid-square`);
+                    gridSquares.forEach(gridSquare => {
+                        gridSquare.style.borderColor = `hsl(${layer.hue}, 100%, 20%)`;
+                    });
+
+                }
+            }
+        }
+
+        function updateSelectionBox() {
+
+            // If the selection box is not visible, return
+            if (!selectStartGridSquare || !selectEndGridSquare) return
+
+            // Get the size and position of the grid squares
+            const gridSize = selectStartGridSquare.offsetWidth;
+            const startLeft = selectStartGridSquare.offsetLeft;
+            const startTop = selectStartGridSquare.offsetTop;
+            const endLeft = selectEndGridSquare.offsetLeft;
+            const endTop = selectEndGridSquare.offsetTop;
+
+            // Calculate the top-left corner of the selection box
+            const boxLeft = Math.min(startLeft, endLeft);
+            const boxTop = Math.min(startTop, endTop);
+
+            // Calculate the size of the selection box
+            const boxWidth = Math.abs(endLeft - startLeft) + gridSize;
+            const boxHeight = Math.abs(endTop - startTop) + gridSize;
+
+            // Set the position and size of the selection box
+            selectionBox.style.left = boxLeft + 'px';
+            selectionBox.style.top = boxTop + 'px';
+            selectionBox.style.width = boxWidth - 3 + 'px'; // Adjusted for border
+            selectionBox.style.height = boxHeight - 3 + 'px'; // Adjusted for border
+
+            const selectionBounds = getSelectionBoxBounds();
+
+            // Clear the selected squares array
+            selectedSquares = [];
+
+            // Iterate over each grid square in the current layer
+            document.querySelectorAll(`#${currentLayer} .grid-square`).forEach(gridSquare => {
+                if (isGridSquareInsideSelection(gridSquare, selectionBounds)) {
+                    selectedSquares.push(gridSquare);
+                    gridSquare.classList.add('selected');
+                } else {
+                    gridSquare.classList.remove('selected');
+                }
+            });
+        }
+
+        function resizeGrid() {
+
+            // Get the grid wrapper and viewport dimensions
+            const gridWrapper = document.getElementById('grid-wrapper');
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Determine the smaller dimension and calculate 75% of it
+            const size = Math.min(viewportWidth, viewportHeight) * 0.75;
+
+            gridWrapper.style.width = size + 'px';
+            gridWrapper.style.height = size + 'px';
+
+            updateGridLayout(); // Update grid layout based on new size
+            updateSelectionBox(); // Update selection box based on new size
+        }
+
+        // Call resizeGrid on window resize
+        window.addEventListener('resize', resizeGrid);
+
+        // Call resizeGrid on page load
+        resizeGrid();
+
+        function handleInput(event) {
+            event.preventDefault();
+
+            const startSquareIndex = parseInt(selectStartGridSquare.dataset.index);
+            const endSquareIndex = parseInt(selectEndGridSquare.dataset.index);
+
+            // layer scale
+            const currentScale = parseInt(layers[currentLayer].scale);
+            const totalSquares = currentScale * currentScale;
+
+            if (event.key === 'Escape') {
+                // hide the selection box
+                selectionBox.style.display = 'none';
+                return;
+            }
+
+            if (selectedSquares.length > 1) {
+
+                if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+
+                    switch (event.key) {
+                        case 'ArrowLeft':
+                            // check if squares left of both start and end are inside the grid
+                            if (startSquareIndex % currentScale > 0 && endSquareIndex % currentScale > 0) {
+                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - 1}"][data-layer="${currentLayer}"]`);
+                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - 1}"][data-layer="${currentLayer}"]`);
+                            }
+                            break;
+                        case 'ArrowRight':
+                            // check if squares right of both start and end are inside the grid
+                            if ((startSquareIndex + 1) % currentScale !== 0 && (endSquareIndex + 1) % currentScale !== 0) {
+                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + 1}"][data-layer="${currentLayer}"]`);
+                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + 1}"][data-layer="${currentLayer}"]`);
+                            }
+                            break;
+                        case 'ArrowUp':
+                            // check if squares above both start and end are inside the grid
+                            if (startSquareIndex - currentScale >= 0 && endSquareIndex - currentScale >= 0) {
+                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - currentScale}"][data-layer="${currentLayer}"]`);
+                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - currentScale}"][data-layer="${currentLayer}"]`);
+                            }
+                            break;
+                        case 'ArrowDown':
+                            // check if squares below both start and end are inside the grid
+                            if (startSquareIndex + currentScale < totalSquares && endSquareIndex + currentScale < totalSquares) {
+                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + currentScale}"][data-layer="${currentLayer}"]`);
+                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + currentScale}"][data-layer="${currentLayer}"]`);
+                            }
+                            break;
+                    }
+
+                } else if (event.key === 'Backspace' || event.key === 'Delete') {
+                    // delete the contents of all selected grid squares
+                    selectedSquares.forEach(gridSquare => {
+                        gridSquare.innerText = ' ';
+                    });
+
+                } else if (event.key.length < 2) {
+                    // if the key pressed is not a special key, set the contents of all selected grid squares to the key
+                    selectedSquares.forEach(gridSquare => {
+                        gridSquare.innerText = event.key;
+                    });
+                }
+            } else {
+
+                const currentIndex = parseInt(selectedSquares[0].dataset.index);
+
+                //if arrow keys are pressed
+                if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                    switch (event.key) {
+                        case 'ArrowLeft':
+                            // Wrap to the other end if at the start of the grid
+                            const leftIndex = (currentIndex - 1 + totalSquares) % totalSquares;
+                            selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
+                            break;
+                        case 'ArrowRight':
+                            // Wrap to the other end if at the end of the grid
+                            const rightIndex = (currentIndex + 1) % totalSquares;
+                            selectStartGridSquare = document.querySelector(`[data-index="${rightIndex}"][data-layer="${currentLayer}"]`);
+                            break;
+                        case 'ArrowUp':
+                            // Wrap within the same column if at the top
+                            const upIndex = (currentIndex - currentScale + totalSquares) % totalSquares;
+                            selectStartGridSquare = document.querySelector(`[data-index="${upIndex}"][data-layer="${currentLayer}"]`);
+                            break;
+                        case 'ArrowDown':
+                            // Wrap within the same column if at the bottom
+                            const downIndex = (currentIndex + currentScale) % totalSquares;
+                            selectStartGridSquare = document.querySelector(`[data-index="${downIndex}"][data-layer="${currentLayer}"]`);
+                            break;
+                    }
+                } else if (event.key === 'Backspace') {
+                    // clear the previous grid square and move the cursor back
+                    const leftIndex = (currentIndex - 1 + totalSquares) % totalSquares;
+                    selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
+
+                    selectedSquares[0].innerText = ' ';
+                } else if (event.key === 'Delete') {
+                    // clear the current grid square
+                    selectedSquares[0].innerText = ' ';
+
+                } else if (event.key.length < 2) {
+                    const rightIndex = (currentIndex + 1) % totalSquares;
+                    selectStartGridSquare = document.querySelector(`[data-index="${rightIndex}"][data-layer="${currentLayer}"]`);
+
+                    selectedSquares[0].innerText = event.key;
+                }
+
+                selectEndGridSquare = selectStartGridSquare;
+            }
+
+            updateGridLayout();
+            updateSelectionBox();
+            saveLayersToLocalStorage();
+        }
+
+        function saveLayersToLocalStorage() {
+            // for each layer, update the layer content
+            Object.keys(layers).forEach(layerId => {
+                const layer = layers[layerId];
+
+                layer.content = "";
+                for (let i = 0; i < 625; i++) {
+                    const gridSquare = document.getElementById(`${layerId}-${i}`);
+
+                    layer.content += gridSquare.innerText ? gridSquare.innerText : ' ';
+                }
+            });
+
+            const layersData = JSON.stringify(layers);
+            localStorage.setItem('layersData', layersData);
+        }
+
+        function loadLayersFromLocalStorage() {
+            const layersData = localStorage.getItem('layersData');
+
+            if (layersData) {
+                layers = JSON.parse(layersData);
+
+            } else {
+                layers = {
+                    layer1: {
+                        scale: 25,
+                        hue: 0,
+                        content: ' '.repeat(625)
+                    },
+                    layer2: {
+                        scale: 25,
+                        hue: 0,
+                        content: ' '.repeat(625)
+                    },
+                    layer3: {
+                        scale: 25,
+                        hue: 0,
+                        content: ' '.repeat(625)
+                    }
+                };
+            }
+
+            // Populate the grid with the content from each layer
+            if (layers[0]) {
+                writeToGrid();
+            }
+        }
+
+        function writeToGrid() {
+            // Populate the grid with the content from each layer
+            Object.keys(layers).forEach(layerId => {
+                const layer = layers[layerId];
+
+                for (let i = 0; i < 625; i++) {
+                    const gridSquare = document.getElementById(`${layerId}-${i}`);
+                    gridSquare.innerText = layer.content[i];
+                }
+
+                //set the hue number input
+                const hueNumber = document.getElementById(`hueNumber-${layerId}`);
+                hueNumber.value = layer.hue;
+
+                //set the scale number input
+                const scaleNumber = document.getElementById(`scaleNumber-${layerId}`);
+                scaleNumber.value = layer.scale;
+
+                //set the scale slider
+                const scaleSlider = document.getElementById(`scaleSlider-${layerId}`);
+                scaleSlider.value = layer.scale;
+
+                //set the hue slider
+                const hueSlider = document.getElementById(`hueSlider-${layerId}`);
+                hueSlider.value = layer.hue;
+            });
+        }
+
+        function clearLayer(layerId) {
+
+            const layer = layers[layerId];
+            layer.content = ' '.repeat(625);
+            layer.scale = 25;
+            layer.hue = 0;
+
+            writeToGrid();
+            updateGridLayout();
+            saveLayersToLocalStorage();
+        }
+
+        function clearAllLayers() {
+            // Show the custom confirmation modal
+            document.getElementById('confirmation-modal').style.display = 'block';
+
+            // Wait for user interaction with the modal
+            document.getElementById('confirm-yes').onclick = function () {
+                // User confirmed the action
+                Object.keys(layers).forEach(layerId => {
+                    const layer = layers[layerId];
+                    layer.content = ' '.repeat(625);
+                    layer.scale = 25;
+                    layer.hue = 0;
+                });
+
+                //purge local storage to clear errors
+                localStorage.removeItem('layersData');
+
+                //populate grid
+                writeToGrid();
+                updateGridLayout();
+
+                // Close the modal
+                document.getElementById('confirmation-modal').style.display = 'none';
+            };
+
+            document.getElementById('confirm-no').onclick = function () {
+                // User declined the action
+                document.getElementById('confirmation-modal').style.display = 'none';
+            };
+        }
+
+
+        function outlineToggle(layer) {
+            // toggle the outline class on all grid squares in the layer
+            const gridSquares = document.querySelectorAll(`#${layer} .grid-square`);
+            gridSquares.forEach(gridSquare => {
+                gridSquare.classList.toggle('grid-outline');
+            });
+        }
+
+        function syncSliderWithNumber(layerId, type) {
+            const numberInput = document.getElementById(`${type}Number-${layerId}`);
+            const slider = document.getElementById(`${type}Slider-${layerId}`);
+            slider.value = numberInput.value;
+
+            layers[layerId][type] = numberInput.value;
+
+            updateGridLayout();
+            saveLayersToLocalStorage();
+        }
+
+        function syncNumberWithSlider(layerId, type) {
+            const numberInput = document.getElementById(`${type}Number-${layerId}`);
+            const slider = document.getElementById(`${type}Slider-${layerId}`);
+            numberInput.value = slider.value;
+
+            layers[layerId][type] = slider.value;
+
+            updateGridLayout();
+            saveLayersToLocalStorage();
+        }
+
+        function changeLayer(layerId) {
+            currentLayer = layerId;
+
+            // Iterate over each layer
+            Object.keys(layers).forEach(layer => {
+                if (layer === layerId) {
+                    // If the layer is the current layer, set the toolbar to active
+                    document.getElementById(`${layer}`).style.pointerEvents = 'auto';
+                } else {
+                    // If the layer is not the current layer, set the toolbar to inactive
+                    document.getElementById(`${layer}`).style.pointerEvents = 'none';
+                }
+            });
+        }
+
+        function createToolbarLayer(layerId) {
+            // Create the main div
+            var toolbarLayer = document.createElement('div');
+            toolbarLayer.className = 'toolbar-container';
+            toolbarLayer.id = 'toolbar-container-' + layerId;
+
+            // Create the toolbar layer button
+            var changeLayerButton = document.createElement('button');
+            changeLayerButton.className = 'toolbar-element';
+            changeLayerButton.textContent = 'Edit ' + layerId;
+            changeLayerButton.setAttribute('onclick', "changeLayer('" + layerId + "')");
+
+            // Create the toggle outline button
+            var toggleOutlineButton = document.createElement('button');
+            toggleOutlineButton.className = 'toolbar-element';
+            toggleOutlineButton.textContent = 'Outline';
+            toggleOutlineButton.setAttribute('onclick', "outlineToggle('" + layerId + "')");
+
+            // Create the scale slider
+            var scaleContainer = document.createElement('div');
+            scaleContainer.className = 'toolbar-element';
+
+            // Create the scale text
+            var scaleText = document.createElement('p1');
+            scaleText.textContent = 'Scale:';
+
+            // Create the scale number input
+            var scaleNumber = document.createElement('input');
+            scaleNumber.type = 'number';
+            scaleNumber.id = 'scaleNumber-' + layerId;
+            scaleNumber.value = 25;
+            scaleNumber.min = 1;
+            scaleNumber.max = 25;
+            scaleNumber.oninput = function () { syncSliderWithNumber(layerId, 'scale'); };
+
+            // Create the scale slider
+            var scaleSlider = document.createElement('input');
+            scaleSlider.type = 'range';
+            scaleSlider.className = 'scale-slider';
+            scaleSlider.id = 'scaleSlider-' + layerId;
+            scaleSlider.min = 1;
+            scaleSlider.max = 25;
+            scaleSlider.value = 25;
+            scaleSlider.oninput = function () { syncNumberWithSlider(layerId, 'scale'); };
+
+            // Append everything to the scale container
+            scaleContainer.appendChild(scaleText);
+            scaleContainer.appendChild(scaleNumber);
+            scaleContainer.appendChild(scaleSlider);
+
+            // Create the hue slider
+            var hueContainer = document.createElement('div');
+            hueContainer.className = 'toolbar-element';
+
+            // Create the hue text
+            var hueP = document.createElement('p1');
+            hueP.textContent = 'Hue:';
+
+            // Create the hue number input
+            var hueNumber = document.createElement('input');
+            hueNumber.type = 'number';
+            hueNumber.id = 'hueNumber-' + layerId;
+            hueNumber.value = 0;
+            hueNumber.min = 0;
+            hueNumber.max = 360;
+            hueNumber.oninput = function () { syncSliderWithNumber(layerId, 'hue'); };
+
+            // Create the hue slider
+            var hueSlider = document.createElement('input');
+            hueSlider.type = 'range';
+            hueSlider.className = 'hue-slider';
+            hueSlider.id = 'hueSlider-' + layerId;
+            hueSlider.min = 0;
+            hueSlider.max = 360;
+            hueSlider.value = 0;
+            hueSlider.oninput = function () { syncNumberWithSlider(layerId, 'hue'); };
+
+            // Append everything to the hue container
+            hueContainer.appendChild(hueP);
+            hueContainer.appendChild(hueNumber);
+            hueContainer.appendChild(hueSlider);
+
+            // Create the clear layer button
+            var clearButton = document.createElement('button');
+            clearButton.className = 'toolbar-element clear-layer';
+            clearButton.textContent = 'Clear Layer';
+            clearButton.setAttribute('onclick', "clearLayer('" + layerId + "')");
+
+            // Append everything to the main div
+            toolbarLayer.appendChild(changeLayerButton);
+            toolbarLayer.appendChild(toggleOutlineButton);
+            toolbarLayer.appendChild(scaleContainer);
+            toolbarLayer.appendChild(hueContainer);
+            toolbarLayer.appendChild(clearButton);
+
+            // Return the complete toolbar layer
+            return toolbarLayer;
+        }
+
+        function createBottomToolbar() {
+
+            // Create the main div
+            var bottomToolBar = document.createElement('div');
+            bottomToolBar.className = 'toolbar-container';
+            bottomToolBar.id = 'toolbar-container-bottom';
+            bottomToolBar.style.marginTop = '20px';
+
+            // Create the clear all button
+            var clearAllButton = document.createElement('button');
+            clearAllButton.className = 'toolbar-element clear-all toolbar-bottom';
+            clearAllButton.textContent = 'Clear All';
+            clearAllButton.setAttribute('onclick', "clearAllLayers()");
+
+            // Create the file input
+            var fileInput = document.createElement('input');
+            fileInput.className = 'toolbar-element toolbar-bottom';
+            fileInput.type = 'file';
+            fileInput.id = 'file-input';
+
+            // Create the load button
+            var loadButton = document.createElement('button');
+            loadButton.className = 'toolbar-element toolbar-bottom';
+            loadButton.textContent = 'Import';
+            loadButton.setAttribute('onclick', "importFromClipboard()");
+
+            // Create the save button
+            var saveButton = document.createElement('button');
+            saveButton.className = 'toolbar-element toolbar-bottom';
+            saveButton.textContent = 'Copy To Clipboard';
+            saveButton.setAttribute('onclick', "exportToClipboard()");
+
+            // Append everything to the main div
+            bottomToolBar.appendChild(clearAllButton);
+            // bottomToolBar.appendChild(fileInput);
+            // bottomToolBar.appendChild(loadButton);
+            bottomToolBar.appendChild(saveButton);
+
+            return bottomToolBar;
+        }
+
+        function updateSliderThumbBackground(layerId, hue) {
+            // Create a unique ID for the style tag
+            const styleTagId = `slider-thumb-style-${layerId}`;
+            let styleTag = document.getElementById(styleTagId);
+
+            // If the style tag doesn't exist, create it and append it to <head>
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = styleTagId;
+                document.head.appendChild(styleTag);
+            }
+
+            // Set the CSS rule for the specific slider thumb
+            styleTag.textContent = `
+        #hueSlider-${layerId}::-webkit-slider-thumb {
+            background: radial-gradient(circle, hsl(${hue}, 100%, 50%), #ffffff);
+        }
+        #hueSlider-${layerId}::-moz-range-thumb {
+            background: radial-gradient(circle, hsl(${hue}, 100%, 50%), #ffffff);
+        }
+    `;
+        }
+
+        function exportToClipboard() {
+            let formattedString = '';
+            Object.keys(layers).forEach(layerId => {
+                const layer = layers[layerId];
+                const contentLines = layer.content.match(/.{1,25}/g); // Split content into lines of 25 characters
+
+                if (contentLines && contentLines.length > 0) {
+                    formattedString += `s= "${contentLines[0]}"+"${contentLines[1]}"`;
+                    for (let i = 2; i < contentLines.length; i += 2) {
+                        formattedString += `\ns+= "${contentLines[i]}"+"${(contentLines[i + 1] || '')}"`;
+                    }
+                    formattedString += `\n:L=${layerId.replace('layer', '')} :H=${layer.hue} :S=${layer.scale}\n`;
+                }
+
+                formattedString += '\n';
+            });
+
+            navigator.clipboard.writeText(formattedString)
+                .catch(err => console.error('Failed to copy data to clipboard', err));
+        }
+
+    </script>
+</body>
+
+</html>
