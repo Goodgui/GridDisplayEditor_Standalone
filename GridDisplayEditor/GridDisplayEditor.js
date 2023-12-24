@@ -480,9 +480,13 @@ function clearAllLayers() {
 function outlineToggle(layer) {
     // toggle the outline class on all grid squares in the layer
     const gridSquares = document.querySelectorAll(`#${layer} .grid-square`);
+    const toolBarButton = document.getElementById(`toolbar-container-${layer}`).childNodes[1];
     gridSquares.forEach(gridSquare => {
         gridSquare.classList.toggle('grid-outline');
     });
+
+    // toggle the outline button color
+    toolBarButton.style.backgroundColor = toolBarButton.style.backgroundColor === 'rgb(66, 79, 107)' ? 'rgb(45, 52, 61)' : 'rgb(66, 79, 107)';
 }
 
 function syncSliderWithNumber(layerId, type) {
@@ -515,9 +519,13 @@ function changeLayer(layerId) {
         if (layer === layerId) {
             // If the layer is the current layer, set the toolbar to active
             document.getElementById(`${layer}`).style.pointerEvents = 'auto';
+            // Update the layer button color
+            document.getElementById(`toolbar-container-${layerId}`).childNodes[0].style.backgroundColor = 'rgb(66, 79, 107)';
         } else {
             // If the layer is not the current layer, set the toolbar to inactive
             document.getElementById(`${layer}`).style.pointerEvents = 'none';
+            // Update the layer button color
+            document.getElementById(`toolbar-container-${layer}`).childNodes[0].style.backgroundColor = 'rgb(45, 52, 61)';
         }
     });
 }
