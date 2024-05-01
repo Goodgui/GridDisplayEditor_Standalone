@@ -309,6 +309,7 @@ function handleInput(event) {
 
         //if arrow keys are pressed
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+
             switch (event.key) {
                 case 'ArrowLeft':
                     // Wrap to the other end if at the start of the grid
@@ -322,7 +323,8 @@ function handleInput(event) {
                     break;
                 case 'ArrowUp':
                     // Wrap within the same column if at the top
-                    const upIndex = (currentIndex - currentScale + totalSquares) % totalSquares;
+                    const upIndexInitial = (currentIndex - 25) % 625 % (25 * currentScale);
+                    const upIndex = upIndexInitial < 0 ? upIndexInitial + currentScale * 25 : upIndexInitial;
                     selectStartGridSquare = document.querySelector(`[data-index="${upIndex}"][data-layer="${currentLayer}"]`);
                     break;
                 case 'ArrowDown':
