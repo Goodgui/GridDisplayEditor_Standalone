@@ -309,11 +309,12 @@ function handleInput(event) {
 
         //if arrow keys are pressed
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-
             switch (event.key) {
                 case 'ArrowLeft':
                     // Wrap to the other end if at the start of the grid
-                    const leftIndex = (currentIndex - 1 + totalSquares) % totalSquares;
+                    const leftIndexInitial = currentIndex % 25 === 0 ? currentIndex - (26 - currentScale) : currentIndex - 1;
+                    const leftIndex = leftIndexInitial < 0 ? leftIndexInitial + currentScale * 25 : leftIndexInitial;
+
                     selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
                     break;
                 case 'ArrowRight':
