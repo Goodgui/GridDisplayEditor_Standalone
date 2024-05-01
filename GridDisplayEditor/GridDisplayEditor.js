@@ -327,7 +327,7 @@ function handleInput(event) {
                     break;
                 case 'ArrowDown':
                     // Wrap within the same column if at the bottom
-                    const downIndex = (currentIndex + currentScale) % totalSquares;
+                    const downIndex = (currentIndex + 25) % 625 % (25 * currentScale);
                     selectStartGridSquare = document.querySelector(`[data-index="${downIndex}"][data-layer="${currentLayer}"]`);
                     break;
             }
