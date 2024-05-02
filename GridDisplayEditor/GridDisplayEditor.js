@@ -131,10 +131,11 @@ function selectEnd(event) {
 
     // if selectStart righter than selectEnd, swap them
     if (parseInt(selectStartGridSquare.dataset.index) % 25 > parseInt(selectEndGridSquare.dataset.index) % 25) {
-        const start = parseInt(selectStartGridSquare.dataset.index);
-        const end = parseInt(selectEndGridSquare.dataset.index);
-        selectStartGridSquare = document.querySelector(`[data-index="${end}"][data-layer="${currentLayer}"]`);
-        selectEndGridSquare = document.querySelector(`[data-index="${start}"][data-layer="${currentLayer}"]`);
+        const size = parseInt(selectStartGridSquare.dataset.index) % 25 - parseInt(selectEndGridSquare.dataset.index) % 25;
+        const start = parseInt(selectStartGridSquare.dataset.index) - size;
+        const end = parseInt(selectEndGridSquare.dataset.index) + size;
+        selectStartGridSquare = document.querySelector(`[data-index="${start}"][data-layer="${currentLayer}"]`);
+        selectEndGridSquare = document.querySelector(`[data-index="${end}"][data-layer="${currentLayer}"]`);
     }
     selectionBox.focus();
 }
