@@ -336,7 +336,8 @@ function handleInput(event) {
             }
         } else if (event.key === 'Backspace') {
             // clear the previous grid square and move the cursor back
-            const leftIndex = (currentIndex - 1 + totalSquares) % totalSquares;
+            const leftIndexInitial = currentIndex % 25 === 0 ? currentIndex - (26 - currentScale) : currentIndex - 1;
+            const leftIndex = leftIndexInitial < 0 ? leftIndexInitial + currentScale * 25 : leftIndexInitial;
             selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
 
             selectedSquares[0].innerText = ' ';
