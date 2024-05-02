@@ -275,7 +275,7 @@ function handleInput(event) {
                     break;
                 case 'ArrowRight':
                     // check if squares right of both start and end are inside the grid
-                    if ((startSquareIndex + 1) % currentScale !== 0 && (endSquareIndex + 1) % currentScale !== 0) {
+                    if (endSquareIndex % 25 < currentScale - 1) {
                         selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + 1}"][data-layer="${currentLayer}"]`);
                         selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + 1}"][data-layer="${currentLayer}"]`);
                     }
