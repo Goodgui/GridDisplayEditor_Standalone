@@ -468,6 +468,20 @@
 
         function selectEnd(event) {
             isSelecting = false;
+
+            // if selectStart bigger than selectEnd, swap them
+            if (parseInt(selectStartGridSquare.dataset.index) > parseInt(selectEndGridSquare.dataset.index)) {
+                [selectStartGridSquare, selectEndGridSquare] = [selectEndGridSquare, selectStartGridSquare];
+            }
+
+            // if selectStart righter than selectEnd, swap them
+            if (parseInt(selectStartGridSquare.dataset.index) % 25 > parseInt(selectEndGridSquare.dataset.index) % 25) {
+                const size = parseInt(selectStartGridSquare.dataset.index) % 25 - parseInt(selectEndGridSquare.dataset.index) % 25;
+                const start = parseInt(selectStartGridSquare.dataset.index) - size;
+                const end = parseInt(selectEndGridSquare.dataset.index) + size;
+                selectStartGridSquare = document.querySelector(`[data-index="${start}"][data-layer="${currentLayer}"]`);
+                selectEndGridSquare = document.querySelector(`[data-index="${end}"][data-layer="${currentLayer}"]`);
+            }
             selectionBox.focus();
         }
 
@@ -608,30 +622,30 @@
                     switch (event.key) {
                         case 'ArrowLeft':
                             // check if squares left of both start and end are inside the grid
-                            if (startSquareIndex % currentScale > 0 && endSquareIndex % currentScale > 0) {
+                            if (startSquareIndex % 25 > 0) {
                                 selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - 1}"][data-layer="${currentLayer}"]`);
                                 selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - 1}"][data-layer="${currentLayer}"]`);
                             }
                             break;
                         case 'ArrowRight':
                             // check if squares right of both start and end are inside the grid
-                            if ((startSquareIndex + 1) % currentScale !== 0 && (endSquareIndex + 1) % currentScale !== 0) {
+                            if (endSquareIndex % 25 < currentScale - 1) {
                                 selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + 1}"][data-layer="${currentLayer}"]`);
                                 selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + 1}"][data-layer="${currentLayer}"]`);
                             }
                             break;
                         case 'ArrowUp':
                             // check if squares above both start and end are inside the grid
-                            if (startSquareIndex - currentScale >= 0 && endSquareIndex - currentScale >= 0) {
-                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - currentScale}"][data-layer="${currentLayer}"]`);
-                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - currentScale}"][data-layer="${currentLayer}"]`);
+                            if (startSquareIndex - 25 >= 0) {
+                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - 25}"][data-layer="${currentLayer}"]`);
+                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - 25}"][data-layer="${currentLayer}"]`);
                             }
                             break;
                         case 'ArrowDown':
                             // check if squares below both start and end are inside the grid
-                            if (startSquareIndex + currentScale < totalSquares && endSquareIndex + currentScale < totalSquares) {
-                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + currentScale}"][data-layer="${currentLayer}"]`);
-                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + currentScale}"][data-layer="${currentLayer}"]`);
+                            if (endSquareIndex < 25 * (currentScale - 1)) {
+                                selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + 25}"][data-layer="${currentLayer}"]`);
+                                selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + 25}"][data-layer="${currentLayer}"]`);
                             }
                             break;
                     }
@@ -657,28 +671,32 @@
                     switch (event.key) {
                         case 'ArrowLeft':
                             // Wrap to the other end if at the start of the grid
-                            const leftIndex = (currentIndex - 1 + totalSquares) % totalSquares;
+                            const leftIndexInitial = currentIndex % 25 === 0 ? currentIndex - (26 - currentScale) : currentIndex - 1;
+                            const leftIndex = leftIndexInitial < 0 ? leftIndexInitial + currentScale * 25 : leftIndexInitial;
                             selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
                             break;
                         case 'ArrowRight':
                             // Wrap to the other end if at the end of the grid
-                            const rightIndex = (currentIndex + 1) % totalSquares;
+                            const rightIndexInitial = currentIndex + 1 + ((currentIndex + 1) % 25 == currentScale) * (25 - currentScale)
+                            const rightIndex = rightIndexInitial >= (currentScale - 1) * 25 + currentScale ? 0 : rightIndexInitial;
                             selectStartGridSquare = document.querySelector(`[data-index="${rightIndex}"][data-layer="${currentLayer}"]`);
                             break;
                         case 'ArrowUp':
                             // Wrap within the same column if at the top
-                            const upIndex = (currentIndex - currentScale + totalSquares) % totalSquares;
+                            const upIndexInitial = (currentIndex - 25) % 625 % (25 * currentScale);
+                            const upIndex = upIndexInitial < 0 ? upIndexInitial + currentScale * 25 : upIndexInitial;
                             selectStartGridSquare = document.querySelector(`[data-index="${upIndex}"][data-layer="${currentLayer}"]`);
                             break;
                         case 'ArrowDown':
                             // Wrap within the same column if at the bottom
-                            const downIndex = (currentIndex + currentScale) % totalSquares;
+                            const downIndex = (currentIndex + 25) % 625 % (25 * currentScale);
                             selectStartGridSquare = document.querySelector(`[data-index="${downIndex}"][data-layer="${currentLayer}"]`);
                             break;
                     }
                 } else if (event.key === 'Backspace') {
                     // clear the previous grid square and move the cursor back
-                    const leftIndex = (currentIndex - 1 + totalSquares) % totalSquares;
+                    const leftIndexInitial = currentIndex % 25 === 0 ? currentIndex - (26 - currentScale) : currentIndex - 1;
+                    const leftIndex = leftIndexInitial < 0 ? leftIndexInitial + currentScale * 25 : leftIndexInitial;
                     selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
 
                     selectedSquares[0].innerText = ' ';
@@ -687,7 +705,8 @@
                     selectedSquares[0].innerText = ' ';
 
                 } else if (event.key.length < 2) {
-                    const rightIndex = (currentIndex + 1) % totalSquares;
+                    const rightIndexInitial = currentIndex + 1 + ((currentIndex + 1) % 25 == currentScale) * (25 - currentScale)
+                    const rightIndex = rightIndexInitial >= (currentScale - 1) * 25 + currentScale ? 0 : rightIndexInitial;
                     selectStartGridSquare = document.querySelector(`[data-index="${rightIndex}"][data-layer="${currentLayer}"]`);
 
                     selectedSquares[0].innerText = event.key;
