@@ -314,12 +314,12 @@ function handleInput(event) {
                     // Wrap to the other end if at the start of the grid
                     const leftIndexInitial = currentIndex % 25 === 0 ? currentIndex - (26 - currentScale) : currentIndex - 1;
                     const leftIndex = leftIndexInitial < 0 ? leftIndexInitial + currentScale * 25 : leftIndexInitial;
-
                     selectStartGridSquare = document.querySelector(`[data-index="${leftIndex}"][data-layer="${currentLayer}"]`);
                     break;
                 case 'ArrowRight':
                     // Wrap to the other end if at the end of the grid
-                    const rightIndex = (currentIndex + 1) % totalSquares;
+                    const rightIndexInitial = currentIndex + 1 + ((currentIndex + 1) % 25 == currentScale) * (25 - currentScale)
+                    const rightIndex = rightIndexInitial > (currentScale - 1) * 25 + currentScale ? 0 : rightIndexInitial;
                     selectStartGridSquare = document.querySelector(`[data-index="${rightIndex}"][data-layer="${currentLayer}"]`);
                     break;
                 case 'ArrowUp':
