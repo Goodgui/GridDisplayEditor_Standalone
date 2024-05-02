@@ -278,15 +278,15 @@ function handleInput(event) {
                 case 'ArrowUp':
                     // check if squares above both start and end are inside the grid
                     if (startSquareIndex - currentScale >= 0 && endSquareIndex - currentScale >= 0) {
-                        selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - currentScale}"][data-layer="${currentLayer}"]`);
-                        selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - currentScale}"][data-layer="${currentLayer}"]`);
+                        selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex - 25}"][data-layer="${currentLayer}"]`);
+                        selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex - 25}"][data-layer="${currentLayer}"]`);
                     }
                     break;
                 case 'ArrowDown':
                     // check if squares below both start and end are inside the grid
                     if (startSquareIndex + currentScale < totalSquares && endSquareIndex + currentScale < totalSquares) {
-                        selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + currentScale}"][data-layer="${currentLayer}"]`);
-                        selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + currentScale}"][data-layer="${currentLayer}"]`);
+                        selectStartGridSquare = document.querySelector(`[data-index="${startSquareIndex + 25}"][data-layer="${currentLayer}"]`);
+                        selectEndGridSquare = document.querySelector(`[data-index="${endSquareIndex + 25}"][data-layer="${currentLayer}"]`);
                     }
                     break;
             }
