@@ -123,6 +123,11 @@ function selectMove(event) {
 
 function selectEnd(event) {
     isSelecting = false;
+
+    // if selectStart bigger than selectEnd, swap them
+    if (parseInt(selectStartGridSquare.dataset.index) > parseInt(selectEndGridSquare.dataset.index)) {
+        [selectStartGridSquare, selectEndGridSquare] = [selectEndGridSquare, selectStartGridSquare];
+    }
     selectionBox.focus();
 }
 
