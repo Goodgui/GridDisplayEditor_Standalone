@@ -324,7 +324,7 @@ function handleInput(event) {
                 case 'ArrowRight':
                     // Wrap to the other end if at the end of the grid
                     const rightIndexInitial = currentIndex + 1 + ((currentIndex + 1) % 25 == currentScale) * (25 - currentScale)
-                    const rightIndex = rightIndexInitial > (currentScale - 1) * 25 + currentScale ? 0 : rightIndexInitial;
+                    const rightIndex = rightIndexInitial >= (currentScale - 1) * 25 + currentScale ? 0 : rightIndexInitial;
                     selectStartGridSquare = document.querySelector(`[data-index="${rightIndex}"][data-layer="${currentLayer}"]`);
                     break;
                 case 'ArrowUp':
