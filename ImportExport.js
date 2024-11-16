@@ -43,7 +43,7 @@ function computeYOLOLString(input, debug) {
     Array.from(input).forEach((char) => {
 
         // if less than 68 characters, add to the current line
-        if (formattedLines[index].length < 68 + (index === 0 ? 0 : 2)) {
+        if (formattedLines[index].length < 67 + (index === 0 ? 0 : 2)) {
             formattedLines[index] += char;
 
             // if current character is a quote, add it to the current line
@@ -108,7 +108,7 @@ function compressString(input) {
     // Function to find the optimal compression pattern
     function findOptimalPattern(input, patternsCost) {
 
-        let minSavings = 5;
+        let minSavings = 0;
         let maxSavings = 0;
         let optimalPattern = null;
         let initialCost = computeYOLOLString(input).length + patternsCost;
@@ -128,6 +128,7 @@ function compressString(input) {
 
                 // computing the actual output string using a as a placeholder
                 testOutput = input.replaceAll(testPattern, '✼');
+                let count = testOutput.length - testOutput.replaceAll('✼', '').length;
                 let testOutputCost = computeYOLOLString(testOutput).length;
                 let testPatternCost = computeYOLOLString(testPattern).length;
 
@@ -137,7 +138,7 @@ function compressString(input) {
                 // calculate the savings
                 let savings = initialCost - testCost;
 
-                if ((savings > (maxSavings))) {
+                if ((savings > (maxSavings)) && count > 1) {
                     maxSavings = savings;
                     optimalPattern = testPattern;
 
@@ -179,7 +180,7 @@ function compressString(input) {
     }
 
     let formattedString = '';
-    formattedLines = ['', '', '', '', '', '', '', '', ''];
+    formattedLines = ['', '', '', '', '', '', '', '', '', ''];
 
     let compressedString = computeYOLOLString(optimizedStr, true);
     compressedString = cleanYololString(compressedString);
