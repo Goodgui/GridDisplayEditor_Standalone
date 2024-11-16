@@ -19,21 +19,50 @@
 		<div id="layer3" class="grid-container" style="z-index: 3;"></div>
 	</div>
 
-	<div id="confirmation-modal" class="modal">
+	<div id="clear-modal" class="modal">
 		<div class="modal-content">
 			<p>Are you sure you want to clear all layers?</p>
 			<div id="button-container">
-				<button id="confirm-yes">Yes</button>
-				<button id="confirm-no">No</button>
+				<button id="clear-confirm-neg">Yes</button>
+				<button id="clear-confirm-pos">No</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="import-modal" class="modal">
+		<div class="modal-content">
+			<p>Import formatting?</p>
+			<div id="button-container">
+				<button id="standalone-import-confirm-pos">Standalone</button>
+				<button id="SPINE-import-confirm-pos">SPINE</button>
+				<button id="import-confirm-neg">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="export-modal" class="modal">
+		<div class="modal-content">
+			<p>How do you want to export?</p>
+			<div id="button-container">
+				<button id="raw-export-confirm-pos">Raw</button>
+				<button id="compressed-export-confirm-pos">Compressed</button>
+				<button id="SPINE-export-confirm-pos">SPINE</button>
+				<button id="export-confirm-neg">Cancel</button>
+
 			</div>
 		</div>
 	</div>
 
 	<div class="made-by">
-		version 2.1_S | Made By Goodgu
+		version 3.0_S | Made By Goodgu
     </div>
 
-	<script src="GridDisplayEditor.js"></script>
+	<script src="ToolBars.js"></script>
+	<script src="ImportExport.js"></script>
+	<script src="UserInput.js"></script>
+	<script src="Selection.js"></script>
+	<script src="Undo.js"></script>
+	<script src="main.js"></script>
 </body>
 
 </html>

@@ -49,6 +49,8 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .toolbar-element:first-child {
@@ -219,7 +221,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .grid-square.grid-outline {
-    border: 1px solid #444;
+    border: 2px solid #444;
 }
 
 /* ------------------------------- Confirmation Modal ------------------------------- */
@@ -272,7 +274,7 @@ input[type=range]::-moz-range-thumb {
     color: #e2e9ff;
     font-size: 16px;
 
-    width: 100px;
+    min-width: 100px;
 
     background-color: #4d646d;
     padding: 10px;
@@ -287,12 +289,12 @@ input[type=range]::-moz-range-thumb {
     box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
 }
 
-#confirm-no:hover {
+[id*="confirm-pos"]:hover {
     background-color: rgb(61, 74, 102);
     box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.5), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
 }
 
-#confirm-yes:hover {
+[id*="confirm-neg"]:hover {
     background-color: rgb(148, 44, 44);
     box-shadow: inset 0px 0px 20px rgba(27, 32, 35, 0.8), 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
 }
@@ -306,3 +308,31 @@ input[type=range]::-moz-range-thumb {
     padding: 10px;
     color: #fff;
 }
+
+/* ------------------------------- Toast ------------------------------- */
+
+.toast {
+    font-family: 'StarbaseFont';
+    color: #e2e9ff;
+
+    position: fixed;
+    z-index: 10;
+
+    padding: 7px;
+
+    left: 10px;
+    background-color: rgba(45, 52, 61, 0.2);
+    border-radius: 10px;
+    box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.25);
+
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Smooth fade-in and fade-out */
+}
+
+.toast.show {
+    opacity: 0.6; /* Fully visible */
+    visibility: visible; /* Ensure the element is interactable */
+}
+
+
