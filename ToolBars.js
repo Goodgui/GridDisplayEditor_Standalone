@@ -34,6 +34,9 @@ function createToolbarLayer(layerId) {
     toggleOutlineButton.textContent = 'Outline';
     toggleOutlineButton.setAttribute('onclick', "outlineToggle('" + layerId + "')");
 
+    // Add event listener for window resize
+    window.addEventListener('resize', updateButtonText);
+
     // Create the scale slider
     var scaleContainer = document.createElement('div');
     scaleContainer.className = 'toolbar-element';
@@ -110,6 +113,17 @@ function createToolbarLayer(layerId) {
     toolbarLayer.appendChild(scaleContainer);
     toolbarLayer.appendChild(hueContainer);
     toolbarLayer.appendChild(clearButton);
+
+    // Function to update outline button text based on window width
+    function updateButtonText() {
+        if (window.innerWidth < 570) {
+            toggleOutlineButton.textContent = 'Out Line';
+        } else {
+            toggleOutlineButton.textContent = 'Outline';
+        }
+    }
+
+    updateButtonText();
 
     // Return the complete toolbar layer
     return toolbarLayer;

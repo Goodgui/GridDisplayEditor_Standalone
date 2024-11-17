@@ -10,6 +10,9 @@ let selectedSquares = [];
 let undoStack = [];
 let redoStack = [];
 
+let topBarHeight = 180;
+let bottomBarHeight = 65;
+
 // default layer
 let currentLayer;
 
@@ -112,9 +115,17 @@ function resizeGrid() {
     const gridWrapper = document.getElementById('grid-wrapper');
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
+    
+    // Get the toolbar heights
+    let topToolBarheight =  document.getElementById('toolbar') ? document.getElementById('toolbar').clientHeight : 134;
+    let bottomToolBarheight =  document.getElementById('bottom-toolbar') ? document.getElementById('bottom-toolbar').clientHeight : 65;
+
+    // Set default toolbar heights if they are not found
+    topToolBarheight = topToolBarheight > 0 ? topToolBarheight : 134;
+    bottomToolBarheight = bottomToolBarheight > 0 ? bottomToolBarheight + 37 : 65;    
 
     // Determine the smaller dimension and calculate 75% of it
-    const size = Math.min(viewportWidth, viewportHeight) * 0.75;
+    const size = Math.min(viewportWidth - 50, (viewportHeight - topToolBarheight - bottomToolBarheight ));
 
     gridWrapper.style.width = size + 'px';
     gridWrapper.style.height = size + 'px';
