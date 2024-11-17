@@ -95,7 +95,8 @@ function updateGridLayout() {
             // Set the hue of the grid outline
             const gridSquares = document.querySelectorAll(`#${layerId} .grid-square`);
             gridSquares.forEach(gridSquare => {
-                gridSquare.style.borderColor = `hsl(${layer.hue}, 100%, 5%)`;
+                gridSquare.style.borderColor = `hsl(${layer.hue}, 100%, 50%, 0.2)`;
+                
             });
 
         }
