@@ -12,9 +12,7 @@ body {
     align-items: center;
     background-color: #1b2023;
 
-    /* horizontal overflow */
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 /* ------------------------------- Toolbars ------------------------------- */
