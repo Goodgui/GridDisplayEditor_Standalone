@@ -298,6 +298,37 @@ function exportToClipboard() {
         toast('Exporting to SPINE is not yet implemented yet. :(');
 
     };
+
+    document.getElementById('ICON-export-confirm-pos').onclick = function () {
+
+        let formattedString = '';
+        let iconNames = [':_a1', ':_b1', ':_c1', ':_d1', ':_e1', ':_f1', ':_g1', ':_h1', ':_a2', ':_b2', ':_c2', ':_d2', ':_e2', ':_f2', ':_g2', ':_h2', ':_a3', ':_b3', ':_c3', ':_d3', ':_e3', ':_f3', ':_g3', ':_h3'];
+        let iconVariables = [];
+
+        // Loop through each layer and format the data
+        Object.keys(layers).forEach(layerId => {
+
+            const layer = layers[layerId];
+
+            // Get the layer data and split it into 8 rows
+            for (let row = 0; row < 8; row++) {
+                iconVariables.push(layer.content.slice(row * 25, (row * 25) + 8));
+            }
+
+        });
+
+        // Format the string
+        iconVariables.forEach((icon, index) => {
+            formattedString += iconNames[index] + '="' + icon + '"' + (index % 4 === 3 ? '\n' : ' ');
+        });
+
+        // Copy the formatted string to the clipboard
+        navigator.clipboard.writeText(formattedString).catch(err => console.error('Failed to copy data to clipboard', err));
+        toast('ICON export copied to clipboard!');
+
+        // Close the modal
+        document.getElementById('export-modal').style.display = 'none';
+    };
 }
 
 
