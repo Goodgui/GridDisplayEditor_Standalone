@@ -26,7 +26,7 @@ A standalone web-based character grid editor for creating ASCII art and text-bas
 
 ## Usage
 
-1. Visit the the online version at [https://goodgui.github.io/GridDisplayEditor_Standalone/](https://goodgu.github.io/GridDisplayEditor_Standalone/) or open `index.html` clone the repository and open it in a web browser
+1. Visit the the [Online Browser Version](https://goodgui.github.io/GridDisplayEditor_Standalone/) or open `index.html` clone the repository and open it in a web browser
 2. Select a layer to edit using the "Edit layer1/layer2/layer3" buttons
 3. Click and drag on the grid to create selections
 4. Type characters to fill selected squares
